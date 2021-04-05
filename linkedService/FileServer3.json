@@ -1,0 +1,17 @@
+{
+	"name": "FileServer3",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "FileServer",
+		"typeProperties": {
+			"host": "C:\\Users\\DELL\\Downloads\\new",
+			"userId": "DESKTOP-K8K17MD\\DELL",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiJkYzMzM2Q0ZS0xNTY4LTQwNDAtYThkMy0yZTE5NGMzMDE5NGUiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "integrationRuntime1",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}
