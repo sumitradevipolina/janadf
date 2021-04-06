@@ -1,0 +1,9 @@
+{
+	"name": "newsumitraadf",
+	"location": "eastus2",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "623fe495-a9dd-4e05-bf0a-1c03393db09d",
+		"tenantId": "39ae0efc-da18-4b47-8836-08ee4b7e14d1"
+	}
+}

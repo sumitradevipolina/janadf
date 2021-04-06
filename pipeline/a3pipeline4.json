@@ -1,9 +1,9 @@
 {
-	"name": "pipeline2",
+	"name": "a3pipeline4",
 	"properties": {
 		"activities": [
 			{
-				"name": "productdataflow",
+				"name": "A3dataflow1",
 				"type": "ExecuteDataFlow",
 				"dependsOn": [],
 				"policy": {
@@ -16,7 +16,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataflow": {
-						"referenceName": "productdataflow",
+						"referenceName": "A3dataflow1",
 						"type": "DataFlowReference"
 					},
 					"compute": {
@@ -28,7 +28,7 @@
 			}
 		],
 		"annotations": [],
-		"lastPublishTime": "2021-04-06T09:19:34Z"
+		"lastPublishTime": "2021-04-06T18:33:57Z"
 	},
 	"type": "Microsoft.DataFactory/factories/pipelines"
 }

@@ -3,8 +3,8 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "ListTables",
-				"type": "Lookup",
+				"name": "SCD dataflow",
+				"type": "ExecuteDataFlow",
 				"dependsOn": [],
 				"policy": {
 					"timeout": "7.00:00:00",
@@ -15,111 +15,20 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"source": {
-						"type": "AzureSqlSource",
-						"sqlReaderQuery": "select * from sumitrasampledb.INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'SalesLT'",
-						"queryTimeout": "02:00:00",
-						"partitionOption": "None"
+					"dataflow": {
+						"referenceName": "SCD dataflow",
+						"type": "DataFlowReference"
 					},
-					"dataset": {
-						"referenceName": "TableList",
-						"type": "DatasetReference"
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
 					},
-					"firstRowOnly": false
-				}
-			},
-			{
-				"name": "ForEach1",
-				"type": "ForEach",
-				"dependsOn": [
-					{
-						"activity": "ListTables",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"userProperties": [],
-				"typeProperties": {
-					"items": {
-						"value": "@activity('ListTables').output.value",
-						"type": "Expression"
-					},
-					"activities": [
-						{
-							"name": "Copy data1",
-							"type": "Copy",
-							"dependsOn": [],
-							"policy": {
-								"timeout": "7.00:00:00",
-								"retry": 0,
-								"retryIntervalInSeconds": 30,
-								"secureOutput": false,
-								"secureInput": false
-							},
-							"userProperties": [],
-							"typeProperties": {
-								"source": {
-									"type": "AzureSqlSource",
-									"queryTimeout": "02:00:00",
-									"partitionOption": "None"
-								},
-								"sink": {
-									"type": "DelimitedTextSink",
-									"storeSettings": {
-										"type": "AzureBlobStorageWriteSettings"
-									},
-									"formatSettings": {
-										"type": "DelimitedTextWriteSettings",
-										"quoteAllText": true,
-										"fileExtension": ".txt"
-									}
-								},
-								"enableStaging": false,
-								"translator": {
-									"type": "TabularTranslator",
-									"typeConversion": true,
-									"typeConversionSettings": {
-										"allowDataTruncation": true,
-										"treatBooleanAsNumber": false
-									}
-								}
-							},
-							"inputs": [
-								{
-									"referenceName": "Sqltable",
-									"type": "DatasetReference",
-									"parameters": {
-										"Table name": {
-											"value": "@item().table_name",
-											"type": "Expression"
-										},
-										"Schema name": {
-											"value": "@item().table_schema",
-											"type": "Expression"
-										}
-									}
-								}
-							],
-							"outputs": [
-								{
-									"referenceName": "CSVfiles",
-									"type": "DatasetReference",
-									"parameters": {
-										"filename": {
-											"value": "@item().table_name",
-											"type": "Expression"
-										}
-									}
-								}
-							]
-						}
-					]
+					"traceLevel": "Fine"
 				}
 			}
 		],
 		"annotations": [],
-		"lastPublishTime": "2021-04-05T07:12:54Z"
+		"lastPublishTime": "2021-04-06T08:57:04Z"
 	},
 	"type": "Microsoft.DataFactory/factories/pipelines"
 }

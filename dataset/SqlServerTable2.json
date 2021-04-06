@@ -3,11 +3,35 @@
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "SqlServer1",
-			"type": "LinkedServiceReference"
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"server": "DESKTOP-K8K17MD\\SUMITRA",
+				"db": "AdventureWorks2012",
+				"user": "DESKTOP-K8K17MD\\DELL",
+				"password": "sumitra991"
+			}
+		},
+		"parameters": {
+			"SCHEMA": {
+				"type": "string"
+			},
+			"TABLENAME": {
+				"type": "string"
+			}
 		},
 		"annotations": [],
 		"type": "SqlServerTable",
-		"schema": []
+		"schema": [],
+		"typeProperties": {
+			"schema": {
+				"value": "@dataset().SCHEMA",
+				"type": "Expression"
+			},
+			"table": {
+				"value": "@dataset().TABLENAME",
+				"type": "Expression"
+			}
+		}
 	},
 	"type": "Microsoft.DataFactory/factories/datasets"
 }

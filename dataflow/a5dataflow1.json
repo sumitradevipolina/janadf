@@ -1,0 +1,32 @@
+{
+	"name": "a5dataflow1",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "AzureSqlTable3",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "AzureSqlTable4",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "Aggregate1"
+				}
+			],
+			"script": "source(output(\n\t\tCustomerID as integer,\n\t\tSalesPerson as string,\n\t\tLineTotal as decimal(38,6),\n\t\tSalesOrderID as integer\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tquery: 'SELECT c.CustomerID,c.SalesPerson,s.LineTotal,s.SalesOrderID  FROM ( [SalesLT].[SalesOrderDetail] s inner join [SalesLT].[SalesOrderHeader] d on (s.SalesOrderID=d.SalesOrderID)) inner join [SalesLT].[Customer] c on (c.CustomerID=d.CustomerID)',\n\tformat: 'query') ~> source1\nsource1 aggregate(groupBy(SalesPerson),\n\tLineTotal = sum(LineTotal)) ~> Aggregate1\nAggregate1 sink(input(\n\t\tSalesPerson as string,\n\t\tLineTotal as decimal(18,0)\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\terrorHandlingOption: 'stopOnFirstError') ~> sink1"
+		}
+	}
+}
