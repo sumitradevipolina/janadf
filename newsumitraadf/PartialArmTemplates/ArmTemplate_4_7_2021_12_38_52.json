@@ -1,0 +1,37 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "newsumitraadf"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/a2AzureDataLakeStore1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureDataLakeStore",
+				"typeProperties": {
+					"dataLakeStoreUri": "https://sumitraservice.azuredatalakestore.net/webhdfs/v1",
+					"servicePrincipalId": "e66caecd-a2d8-4450-8c8b-36abb0b28d59",
+					"servicePrincipalKey": {
+						"type": "SecureString",
+						"value": "**********"
+					},
+					"tenant": "39ae0efc-da18-4b47-8836-08ee4b7e14d1",
+					"subscriptionId": "e3433577-8366-47fa-9ee5-304d1ac85505",
+					"resourceGroupName": "Sumitra"
+				}
+			},
+			"dependsOn": []
+		}
+	]
+}
